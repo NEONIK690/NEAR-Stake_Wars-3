@@ -75,61 +75,111 @@ sudo apt install python3-pip
 Установить конфигурацию:
 
 USER_BASE_BIN=$(python3 -m site — user-base)/bin
+
 export PATH=”$USER_BASE_BIN:$PATH”
+
 Установить Building env:
+
 sudo apt install clang build-essential make
+
 Установить Rust & Cargo:
+
 curl — proto ‘=https’ — tlsv1.2 -sSf https://sh.rustup.rs | sh
+
 в появившемся списке выбрать “1”
+
 ![1](https://user-images.githubusercontent.com/78436658/187995037-101f5eb5-4210-4220-b73a-cafe11e44f29.jpg)
+
 source $HOME/.cargo/env
+
 Склонировать nearcore репозиторий:
+
 git clone https://github.com/near/nearcore
+
 cd nearcore
+
 git fetch
+
 Проверить актуальный comit по ссылке https://github.com/near/stakewars-iii/blob/main/commit.md
+
 Добавить его:
+
 git checkout <commit>
+  
 В моем случае это выглядит так: git checkout 8448ad1ebf27731a43397686103aa5277e7f2fcf
+  
 Скомпилировать бинарный файл:
+  
 cargo build -p neard — release — features shardnet
+  
 Инициализировать рабочую директорию:
+  
 ./target/release/neard — home ~/.near init — chain-id shardnet — download-genesis
+  
 Заменить файл config.json:
+  
 rm ~/.near/config.json
+  
 wget -O ~/.near/config.json https://s3-us-west-1.amazonaws.com/build.nearprotocol.com/nearcore-deploy/shardnet/config.json
+  
 Установить AWS CLI:
+  
 sudo apt-get install awscli -y
+  
 Заменить файл genesis.json предварительно удалив старый:
+  
 rm ~/.near/genesis.json
-cd ~/.near  
+  
+cd ~/.near 
+  
 wget https://s3-us-west-1.amazonaws.com/build.nearprotocol.com/nearcore-deploy/shardnet/genesis.json
 
-  Авторизовать кошелек локально, для этого ввести в командной строке:
+ Авторизовать кошелек локально, для этого ввести в командной строке:
+  
 cd
+  
 near login  
+  
 ![1](https://user-images.githubusercontent.com/78436658/187995977-6ea043a2-53c7-44a9-9557-35d4fb0b51b8.jpg)
+  
 скопировать ссылку из командной строки и вставить в строку браузера где установлен кошелек near.
+  
 ![1](https://user-images.githubusercontent.com/78436658/187996711-ac24547a-c220-4a07-85de-2932de01373d.jpg)
+  
 подтвердить действие и дождаться вот такого экрана:
+  
 ![1](https://user-images.githubusercontent.com/78436658/187996918-677dc1b9-7b3a-4377-8797-f967b99eb459.jpg)
 
   Перейти в терминал и ввести имя своего кошелька , в моем случае это neonik690.shardnet.near
+  
 Когда соединение будет установлено, появится надпись successfully.
+  
 Создать файл validator_key.json:
+  
 near generate-key <pool_id>
+  
 Придумать свое имя пула и подставить убрав кавычки
+  
 мой пример:
+  
 near generate-key neonik690.factory.shardnet.near
+  
 Cкопировать файл из папки shardnet в папку .near и назвать его validator_key.json:
+  
 cp ~/.near-credentials/shardnet/YOUR_WALLET.json ~/.near/validator_key.json
+  
 YOUR_WALLET — имя кошелька (мой пример neonik690.shardrnet.near)
+  
 Отредактировать файл validator_key.json как показано у меня на скриншоте ниже :
+  
 nano ~/.near/validator_key.json
+  
 ![1](https://user-images.githubusercontent.com/78436658/187998698-9bbc1223-6d2e-46c7-b140-ca950b806a38.jpg)
+  
 Сохранить сделанные изменения ctrl +S и выйти из редакотора ctrl + X
 
   Создать сервисный файл:
+  
 sudo nano /etc/systemd/system/neard.service
   
 [Unit]
@@ -149,14 +199,23 @@ KillMode=mixed
 WantedBy=multi-user.target
 
 Сохранить и выйти из редактора.
+  
 systemctl daemon-reload
-Активировать сервис:  
+  
+Активировать сервис: 
+  
 systemctl enable neard
+  
 Запустить узел:
+  
 systemctl start neard
+  
 Проверить логи узла и сделать их цветными:
+  
 apt install ccze
+  
 journalctl -n 100 -f -u neard | ccze -A
+  
 Необходимо дождаться полной синхронизации и только потом переходить к следующему этапу.
 
   Развернуть пул ставок:
@@ -164,71 +223,105 @@ journalctl -n 100 -f -u neard | ccze -A
 near call factory.shardnet.near create_staking_pool ‘{“staking_pool_id”: “<pool id>”, “owner_id”: “<accountId>”, “stake_public_key”: “<public key>”, “reward_fee_fraction”: {“numerator”: 5, “denominator”: 100}, “code_hash”:”DD428g9eqLL8fWUxv8QSpVFzyHi1Qd16P8ephYCTmMSZ”}’ — accountId=”<accountId>” — amount=500 — gas=300000000000000
 
 Где вместо <pool id> <public key> и <accountId> подставить свои данные
+  
 - <public key> взять из файла командой
+  
 cat ~/.near/validator_key.json
+  
 - <pool id> - имя стейкинг пула
+  
 - <accountId> - имя кошелька
+  
 Проверить свой пул в эксплорере браузера можно по ссылке https://explorer.shardnet.near.org/nodes/validators
 
  Внести депозит и сделать ставку:
-near call ИМЯПУЛА.factory.shardnet.near deposit_and_stake — amount 100 — accountId ИМЯКОШЕЛЬКА.shardnet.near — gas=300000000000000 
+  
+near call ИМЯПУЛА.factory.shardnet.near deposit_and_stake — amount 100 — accountId ИМЯКОШЕЛЬКА.shardnet.near — gas=300000000000000
+  
 100 - количество вносимых токенов
 
- Разделегировать ставку можно командой: 
+ Разделегировать ставку можно командой:
+  
 near call <pool_id> unstake ‘{“amount”: “<amount yoctoNEAR>”}’ — accountId <accountId> — gas=300000000000000
+  
 где <amount yoctoNEAR> это необходимое количество монет к разделегированию.
 
  Разделегировать все:
+  
 near call <pool_id> unstake_all — accountId <accountId> — gas=300000000000000
 
  Вывод с узла занимает 2–3 эпохи:
+  
 near call <pool_id> withdraw ‘{“amount”: “<amount yoctoNEAR>”}’ — accountId <accountId> — gas=300000000000000
+  
 где <amount yoctoNEAR> это необходимое количество монет к разделегированию.
 
  Если нужно вывести все, то использовать команду ниже:
+  
 near call <pool_id> withdraw_all — accountId <accountId> — gas=300000000000000
 
  Пинг узла.
+  
 Пинг выдает новое предложение и обновляет баланс ставок для ваших делегатов. Пинг должен выдаваться каждую эпоху, чтобы сообщаемые награды были актуальными.
 
 near call <pool_id> ping ‘{}’ — accountId <accountId> — gas=300000000000000
+  
 - <accountId> - имя кошелька
 
 RPC
-Любой узел в сети предлагает услуги RPC на порту 3030, пока порт открыт в брандмауэре узлов. 
+  
+Любой узел в сети предлагает услуги RPC на порту 3030, пока порт открыт в брандмауэре узлов.
+  
 Обычно RPC используется для проверки статистики валидатора, версии узла и просмотра доли делегатора, 
+  
 хотя ее можно использовать для взаимодействия с блокчейном, учетными записями и контрактами в целом.
+  
 Более подробно о многих командах и о том, как их использовать, читайте здесь:
+  
 https://docs.near.org/api/rpc/introduction
   
  Проверить версию узла:
+  
 curl -s http://127.0.0.1:3030/status | jq .version
 
  Проверить делегаторов и ставки:
+  
 near view <your pool>.factory.shardnet.near get_accounts ‘{“from_index”: 0, “limit”: 10}’ — accountId <accountId>.shardnet.near
 
  Проверить причину отказа узла:
+  
 curl -s -d ‘{“jsonrpc”: “2.0”, “method”: “validators”, “id”: “dontcare”, “params”: [null]}’ -H ‘Content-Type: application/json’ 127.0.0.1:3030 | jq -c ‘.result.prev_epoch_kickout[] | select(.account_id | contains (“<POOL_ID>”))’ | jq .reason
   
  Основные команды NEAR CLI для работы с узлом:
   
  Предложение валидатора указывает на то, что он хотел бы войти в набор валидатора, 
+  
 чтобы предложение было принято, оно должно соответствовать минимальной цене места.
+  
  Использовать команду:
+  
 near proposals
 
- Cписок активных валидаторов в текущую эпоху, количество произведенных блоков, 
+ Cписок активных валидаторов в текущую эпоху, количество произведенных блоков,
+  
 количество ожидаемых блоков и скорость онлайн. 
+  
  Использовать команду:
+  
 near validators current
   
  Валидаторы, чье предложение было принято одну эпоху назад и которые войдут в набор валидаторов в следующую эпоху
+  
  Использовать команду:
+  
 near validators next
  
  Еще больше полезных команд и коментариев к ним:
+  
  Использовать команду:
+  
 near -help
+  
 ![1](https://user-images.githubusercontent.com/78436658/188003888-07ffa750-ee54-4304-b001-2abb5e0b551e.jpg)
 
 
