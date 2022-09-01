@@ -15,12 +15,18 @@ Storage: 500GB SSD
 Я выбрал выделенный сервер от известного хостера HETZNER, модель AX41-NVME.
 Данный сервер обладает высокой производительностью и запасом мощности для данного этапа тестирования.
 Посмотреть цены и выбрать себе сервер можно по ссылке: https://www.hetzner.com/ru/dedicated-rootserver/matrix-ax
+
 ![1](https://user-images.githubusercontent.com/78436658/187992176-af5ba0c8-d53e-4d4d-8a20-469f05ecc19f.jpg)
+
 После необходимо создать кошелек в сети NEAR Shardnet.
 Переходим для этого по ссылке: https://wallet.shardnet.near.org/
+
 ![1](https://user-images.githubusercontent.com/78436658/187992632-07372754-efae-4214-8231-ceb5711280b9.jpg)
+
 ![1](https://user-images.githubusercontent.com/78436658/187993164-30db30e2-d6ed-4a30-8bc4-c3d6c4aa116f.jpg)
+
 Когда кошелек успешно создан, на него сразу придут тестовые токены, которые будут необходимы для дальнейших задач.
+
 ![1](https://user-images.githubusercontent.com/78436658/187993457-527e50d5-d5f6-4bb1-8d8b-f1100df165e6.jpg)
 
 Переходим на сервер и теперь рабоатаем в командной строке.
