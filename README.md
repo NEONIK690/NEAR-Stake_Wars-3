@@ -40,22 +40,40 @@ sudo apt update && sudo apt upgrade -y
 Установить Node.js и npm:
 
 curl -sL https://deb.nodesource.com/setup_18.x | sudo -E bash -
+
 sudo apt install build-essential nodejs
+
 PATH=”$PATH”
+
 Проверить версии (нужна версия не ниже 18.х.х.):
+
 node -v
+
 npm -v
+
 Установить NEAR-CLI:
+
 sudo npm install -g near-cli
+
 Настроить необходимую окружающую среду:
+
 export NEAR_ENV=shardnet
+
 echo ‘export NEAR_ENV=shardnet’ >> ~/.bashrc
+
 echo ‘export NEAR_ENV=shardnet’ >> ~/.profile
+
 Поставить необходимые инструменты разработчика:
-sudo apt install -y git binutils-dev libcurl4-openssl-dev zlib1g-dev libdw-dev libiberty-dev cmake gcc g++ python docker.io protobuf-compiler libssl-dev pkg-config clang llvm cargo
+
+sudo apt install -y git binutils-dev libcurl4-openssl-dev zlib1g-dev libdw-dev libiberty-dev cmake gcc g++ python docker.io protobuf-compiler libssl-dev pkg-config 
+clang llvm cargo
+
 Установить Python pip:
+
 sudo apt install python3-pip
+
 Установить конфигурацию:
+
 USER_BASE_BIN=$(python3 -m site — user-base)/bin
 export PATH=”$USER_BASE_BIN:$PATH”
 Установить Building env:
