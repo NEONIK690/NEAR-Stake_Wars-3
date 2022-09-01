@@ -30,10 +30,15 @@ Storage: 500GB SSD
 ![1](https://user-images.githubusercontent.com/78436658/187993457-527e50d5-d5f6-4bb1-8d8b-f1100df165e6.jpg)
 
 Переходим на сервер и теперь рабоатаем в командной строке.
+
 В данном примере я делаю установку под суперпользователем root , операционная система ubuntu 20.04 
+
 Сначала надо обновить пакеты:
+
 sudo apt update && sudo apt upgrade -y
+
 Установить Node.js и npm:
+
 curl -sL https://deb.nodesource.com/setup_18.x | sudo -E bash -
 sudo apt install build-essential nodejs
 PATH=”$PATH”
