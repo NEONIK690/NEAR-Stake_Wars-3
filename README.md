@@ -131,11 +131,11 @@ git checkout <commit>
   
 Скомпилировать бинарный файл:
   
-cargo build -p neard -- release -- features shardnet
+cargo build -p neard --release --features shardnet
   
 Инициализировать рабочую директорию:
   
-./target/release/neard -- home ~/.near init -- chain-id shardnet -- download-genesis
+./target/release/neard --home ~/.near init --chain-id shardnet --download-genesis
   
 Заменить файл config.json:
   
