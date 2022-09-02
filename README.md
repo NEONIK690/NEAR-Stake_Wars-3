@@ -204,19 +204,33 @@ nano ~/.near/validator_key.json
 sudo nano /etc/systemd/system/neard.service
   
 [Unit]
+  
 Description=NEARd Daemon Service
+  
 [Service]
+  
 Type=simple
+  
 User=root
+  
 #Group=near
+  
 WorkingDirectory=/root/.near
+  
 ExecStart=/root/nearcore/target/release/neard run
+  
 Restart=on-failure
+  
 RestartSec=20
+  
 KillSignal=SIGINT
+  
 TimeoutStopSec=40
+  
 KillMode=mixed
+  
 [Install]
+  
 WantedBy=multi-user.target
 
 Сохранить и выйти из редактора.
