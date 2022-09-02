@@ -241,7 +241,7 @@ journalctl -n 100 -f -u neard | ccze -A
 
   Развернуть пул ставок:
   
-near call factory.shardnet.near create_staking_pool ‘{“staking_pool_id”: “<pool id>”, “owner_id”: “<accountId>”, “stake_public_key”: “<public key>”, “reward_fee_fraction”: {“numerator”: 5, “denominator”: 100}, “code_hash”:”DD428g9eqLL8fWUxv8QSpVFzyHi1Qd16P8ephYCTmMSZ”}’ — accountId=”<accountId>” — amount=500 — gas=300000000000000
+near call factory.shardnet.near create_staking_pool ‘{“staking_pool_id”: “<pool id>”, “owner_id”: “<accountId>”, “stake_public_key”: “<public key>”, “reward_fee_fraction”: {“numerator”: 5, “denominator”: 100}, “code_hash”:”DD428g9eqLL8fWUxv8QSpVFzyHi1Qd16P8ephYCTmMSZ”}’ --accountId=”<accountId>” --amount=500 --gas=300000000000000
 
 Где вместо <pool id> <public key> и <accountId> подставить свои данные
   
@@ -257,35 +257,35 @@ cat ~/.near/validator_key.json
 
  Внести депозит и сделать ставку:
   
-near call ИМЯПУЛА.factory.shardnet.near deposit_and_stake — amount 100 — accountId ИМЯКОШЕЛЬКА.shardnet.near — gas=300000000000000
+near call ИМЯПУЛА.factory.shardnet.near deposit_and_stake --amount 100 --accountId ИМЯКОШЕЛЬКА.shardnet.near --gas=300000000000000
   
 100 - количество вносимых токенов
 
  Разделегировать ставку можно командой:
   
-near call <pool_id> unstake ‘{“amount”: “<amount yoctoNEAR>”}’ — accountId <accountId> — gas=300000000000000
+near call <pool_id> unstake ‘{“amount”: “<amount yoctoNEAR>”}’ --accountId <accountId> --gas=300000000000000
   
 где <amount yoctoNEAR> это необходимое количество монет к разделегированию.
 
  Разделегировать все:
   
-near call <pool_id> unstake_all — accountId <accountId> — gas=300000000000000
+near call <pool_id> unstake_all --accountId <accountId> --gas=300000000000000
 
  Вывод с узла занимает 2–3 эпохи:
   
-near call <pool_id> withdraw ‘{“amount”: “<amount yoctoNEAR>”}’ — accountId <accountId> — gas=300000000000000
+near call <pool_id> withdraw ‘{“amount”: “<amount yoctoNEAR>”}’ --accountId <accountId> --gas=300000000000000
   
 где <amount yoctoNEAR> это необходимое количество монет к разделегированию.
 
  Если нужно вывести все, то использовать команду ниже:
   
-near call <pool_id> withdraw_all — accountId <accountId> — gas=300000000000000
+near call <pool_id> withdraw_all --accountId <accountId> --gas=300000000000000
 
  Пинг узла.
   
 Пинг выдает новое предложение и обновляет баланс ставок для ваших делегатов. Пинг должен выдаваться каждую эпоху, чтобы сообщаемые награды были актуальными.
 
-near call <pool_id> ping ‘{}’ — accountId <accountId> — gas=300000000000000
+near call <pool_id> ping ‘{}’ --accountId <accountId> --gas=300000000000000
   
 - <accountId> - имя кошелька
 
