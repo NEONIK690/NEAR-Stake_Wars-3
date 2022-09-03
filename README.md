@@ -259,13 +259,13 @@ near call factory.shardnet.near create_staking_pool '{"staking_pool_id": ""pool 
 
 Где вместо <pool id> <public key> и <accountId> подставить свои данные
   
- public key - взять из файла командой
+ ""public key"" - взять из файла командой
   
 cat ~/.near/validator_key.json
   
- pool id - имя стейкинг пула
+ ""pool id"" - имя стейкинг пула
   
- accountId - имя кошелька
+ ""accountId"" - имя кошелька
   
  Мой пример: near call factory.shardnet.near create_staking_pool '{"staking_pool_id": "x690", "owner_id": "neonik690.shardnet.near", "stake_public_key": "ed25519:2AcDiCwYMuhHM8PrhbyPyAf43RNT5pfN3FdPQRvkafgH", "reward_fee_fraction": {"numerator": 5, "denominator": 100}, "code_hash":"DD428g9eqLL8fWUxv8QSpVFzyHi1Qd16P8ephYCTmMSZ"}' --accountId="neonik690.shardnet.near" --amount=450 --gas=300000000000000
   
