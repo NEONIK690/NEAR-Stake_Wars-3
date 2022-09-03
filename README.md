@@ -255,7 +255,7 @@ journalctl -n 100 -f -u neard | ccze -A
 
   Развернуть пул ставок:
   
-near call factory.shardnet.near create_staking_pool '{"staking_pool_id": "<pool id>", "owner_id": "<accountId>", "stake_public_key": "<public key>", "reward_fee_fraction": {"numerator": 5, "denominator": 100}, "code_hash":"DD428g9eqLL8fWUxv8QSpVFzyHi1Qd16P8ephYCTmMSZ"}' --accountId="<accountId>" --amount=450 --gas=300000000000000
+near call factory.shardnet.near create_staking_pool '{"staking_pool_id": ""pool id"", "owner_id": "<accountId>", "stake_public_key": "<public key>", "reward_fee_fraction": {"numerator": 5, "denominator": 100}, "code_hash":"DD428g9eqLL8fWUxv8QSpVFzyHi1Qd16P8ephYCTmMSZ"}' --accountId="<accountId>" --amount=450 --gas=300000000000000
 
 Где вместо <pool id> <public key> и <accountId> подставить свои данные
   
@@ -266,6 +266,8 @@ cat ~/.near/validator_key.json
  pool id - имя стейкинг пула
   
  accountId - имя кошелька
+  
+ Мой пример: near call factory.shardnet.near create_staking_pool '{"staking_pool_id": "x690", "owner_id": "neonik690.shardnet.near", "stake_public_key": "ed25519:2AcDiCwYMuhHM8PrhbyPyAf43RNT5pfN3FdPQRvkafgH", "reward_fee_fraction": {"numerator": 5, "denominator": 100}, "code_hash":"DD428g9eqLL8fWUxv8QSpVFzyHi1Qd16P8ephYCTmMSZ"}' --accountId="neonik690.shardnet.near" --amount=450 --gas=300000000000000
   
 Проверить свой пул в эксплорере браузера можно по ссылке https://explorer.shardnet.near.org/nodes/validators
 
