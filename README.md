@@ -259,13 +259,13 @@ near call factory.shardnet.near create_staking_pool '{"staking_pool_id": "<pool 
 
 Где вместо <pool id> <public key> и <accountId> подставить свои данные
   
-- <public key> взять из файла командой
+ <public key> взять из файла командой
   
 cat ~/.near/validator_key.json
   
-- <pool id> - имя стейкинг пула
+ <pool id> - имя стейкинг пула
   
-- <accountId> - имя кошелька
+ <accountId> - имя кошелька
   
 Проверить свой пул в эксплорере браузера можно по ссылке https://explorer.shardnet.near.org/nodes/validators
 
